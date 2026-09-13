@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ordina online · Checkout | Pasticceria Antica Dolceria</title>
+  <meta name="description"
+    content="Ordina online le tue paste, torte e cornetti preferiti. Scegli tra ritiro in pasticceria a Mompiano o consegna a domicilio.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/gallery_1.jpg" alt="Antica Dolceria Logo">
+        <span class="brand-text">PASTICCERIA<span class="gold">ANTICA DOLCERIA</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" data-i18n="home">Home</a></li>
+          <li><a href="menu.html" data-i18n="pastries">Pasticceria</a></li>
+          <li><a href="cakes.html" data-i18n="cakes">Torte</a></li>
+          <li><a href="catering.html" data-i18n="catering">Catering</a></li>
+          <li><a href="about.html" data-i18n="about">Chi siamo</a></li>
+          <li><a href="gallery.html" data-i18n="gallery">Galleria</a></li>
+          <li><a href="contact.html" data-i18n="contact">Contatti</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-switch-btn" class="action-btn lang-btn" onclick="AnticaApp.toggleLanguage()"
+          aria-label="Change language">EN</button>
+        <button id="theme-btn" class="action-btn" onclick="AnticaApp.toggleTheme()" aria-label="Toggle theme">
+          <span id="theme-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg></span>
+        </button>
+        <button class="action-btn cart-icon-btn" onclick="AnticaApp.openCart()" aria-label="Open cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+        <button class="action-btn mobile-menu-toggle" onclick="AnticaApp.toggleMobileNav()" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+    <a href="index.html" onclick="AnticaApp.closeMobileNav()" data-i18n="home">Home</a>
+    <a href="menu.html" onclick="AnticaApp.closeMobileNav()" data-i18n="pastries">Pasticceria</a>
+    <a href="cakes.html" onclick="AnticaApp.closeMobileNav()" data-i18n="cakes">Torte</a>
+    <a href="catering.html" onclick="AnticaApp.closeMobileNav()" data-i18n="catering">Catering</a>
+    <a href="about.html" onclick="AnticaApp.closeMobileNav()" data-i18n="about">Chi siamo</a>
+    <a href="gallery.html" onclick="AnticaApp.closeMobileNav()" data-i18n="gallery">Galleria</a>
+    <a href="contact.html" onclick="AnticaApp.closeMobileNav()" data-i18n="contact">Contatti</a>
+    <a href="order.html" onclick="AnticaApp.closeMobileNav()" data-i18n="order"
+      style="color:var(--gold-primary);">Ordina ora</a>
+  </div>
+
+  <!-- Order / Checkout Section -->
+  <main class="section-pad" style="padding-top: calc(var(--header-height) + 3.5rem); min-height: 80vh;">
+    <div class="container" style="max-width: 1000px;">
+
+      <!-- Confirmation Screen (Hidden by default) -->
+      <div id="order-success-screen" style="display:none; text-align:center; padding: 4rem 1rem;">
+        <span class="eyebrow" data-i18n="orderForm.successTitle">Grazie! Ordine confermato</span>
+        <h1 style="font-size: 3rem; margin-bottom: 1.5rem;" id="success-heading">Grazie per il tuo ordine!</h1>
+        <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 540px; margin: 0 auto 2rem auto;"
+          id="success-message">
+          Abbiamo registrato il tuo ordine. Ti contatteremo a breve per confermare il ritiro o la consegna.
+        </p>
+        <div
+          style="background: var(--bg-card); border: 1px solid var(--gold-border); padding: 1.5rem; border-radius: var(--radius-sm); display: inline-block; margin-bottom: 2.5rem;">
+          <span
+            style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-primary);"
+            data-i18n="orderForm.orderNumber">Numero d'ordine</span>
+          <div id="order-confirmed-id"
+            style="font-family: var(--font-heading); font-size: 1.75rem; font-weight: 700; margin-top: 0.25rem;">
+            #AD-000000</div>
+        </div>
+        <div>
+          <a href="index.html" class="gold-btn" data-i18n="home">Torna alla Home</a>
+        </div>
+      </div>
+
+      <!-- Checkout Form & Order Summary -->
+      <div id="checkout-view">
+        <div class="section-header text-left">
+          <span class="eyebrow" data-i18n="order">Ordina online</span>
+          <h1 style="font-size: clamp(2.25rem, 4vw, 3.5rem);" data-i18n="orderForm.title">Il tuo ordine</h1>
+        </div>
+
+        <div class="contact-split" style="grid-template-columns: 1.2fr 1fr;">
+
+          <!-- Checkout Customer Info Form -->
+          <div class="form-card">
+            <h3 style="font-size: 1.35rem; margin-bottom: 1.5rem;">Dati di contatto e consegna</h3>
+            <form id="checkout-form" onsubmit="handleOrderSubmit(event)">
+
+              <div class="form-group">
+                <label data-i18n="orderForm.fulfillment">Modalità di ritiro</label>
+                <div style="display:flex; gap:1rem; margin-top:0.5rem;">
+                  <label
+                    style="display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; text-transform:none; cursor:pointer;">
+                    <input type="radio" name="fulfillment" value="pickup" checked
+                      onchange="toggleDeliveryFields(false)">
+                    <span data-i18n="orderForm.pickup">Ritiro in sede (Via Ambaraga 68)</span>
+                  </label>
+                  <label
+                    style="display:flex; align-items:center; gap:0.5rem; font-size:0.9rem; text-transform:none; cursor:pointer;">
+                    <input type="radio" name="fulfillment" value="delivery" onchange="toggleDeliveryFields(true)">
+                    <span data-i18n="orderForm.delivery">Consegna a domicilio</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label data-i18n="orderForm.name">Nome e Cognome</label>
+                <input type="text" id="cust-name" class="field" required placeholder="Mario Rossi">
+              </div>
+
+              <div class="form-group">
+                <label data-i18n="orderForm.email">Email</label>
+                <input type="email" id="cust-email" class="field" required placeholder="mario.rossi@email.com">
+              </div>
+
+              <div class="form-group">
+                <label data-i18n="orderForm.phone">Telefono</label>
+                <input type="tel" id="cust-phone" class="field" required placeholder="+39 333 1234567">
+              </div>
+
+              <div class="form-group" id="delivery-address-group" style="display:none;">
+                <label data-i18n="orderForm.address">Indirizzo di consegna</label>
+                <input type="text" id="cust-address" class="field" placeholder="Via, civico, CAP, città">
+              </div>
+
+              <div class="form-group">
+                <label data-i18n="orderForm.notes">Note o orario desiderato</label>
+                <textarea id="cust-notes" class="field" rows="3"
+                  placeholder="Es. Ritiro previsto alle ore 10:30, candeline incluse..."></textarea>
+              </div>
+
+              <button type="submit" id="submit-order-btn" class="gold-btn" style="width:100%; margin-top:1rem;"
+                data-i18n="orderForm.submit">
+                Conferma ordine
+              </button>
+            </form>
+          </div>
+
+          <!-- Order Summary Sidebar -->
+          <div
+            style="background: var(--bg-card); border: 1px solid var(--gold-border); padding: 2rem; border-radius: var(--radius-sm); height: fit-content;">
+            <h3
+              style="font-size: 1.35rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--gold-border); padding-bottom: 0.75rem;"
+              data-i18n="cart">Riepilogo carrello</h3>
+
+            <div id="checkout-items-list" style="margin-bottom: 1.5rem;">
+              <!-- Rendered dynamically -->
+            </div>
+
+            <div
+              style="border-top: 1.5px solid var(--gold-border); padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; font-size: 1.25rem; font-weight: 700;">
+              <span data-i18n="total">Totale</span>
+              <span id="checkout-total-price" style="color: var(--gold-primary);">€ 0.00</span>
+            </div>
+
+            <div style="margin-top: 1.5rem; text-align: center;">
+              <a href="menu.html" style="font-size: 0.85rem; color: var(--text-muted); text-decoration: underline;">←
+                Aggiungi altri prodotti dal menu</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom:1.25rem;">
+            <img src="assets/images/gallery_1.jpg" alt="Antica Dolceria">
+            <span class="brand-text">PASTICCERIA<span class="gold">ANTICA DOLCERIA</span></span>
+          </div>
+          <p style="color: rgba(253,251,247,0.7); font-size: 0.95rem; max-width: 320px;" data-i18n="sub">Ricette
+            tradizionali, ingredienti premium e sapori indimenticabili.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="menu">Menu</h4>
+          <ul class="footer-links">
+            <li><a href="menu.html" data-i18n="pastries">Pasticceria</a></li>
+            <li><a href="cakes.html" data-i18n="cakes">Torte</a></li>
+            <li><a href="catering.html" data-i18n="catering">Catering</a></li>
+            <li><a href="order.html" data-i18n="order">Ordina ora</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="about">Chi siamo</h4>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="storyEyebrow">La nostra storia</a></li>
+            <li><a href="gallery.html" data-i18n="gallery">Galleria</a></li>
+            <li><a href="contact.html" data-i18n="contact">Contatti</a></li>
+            <li><a href="admin.html" data-i18n="admin">Gestione</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="newsletter">Una lettera dalla Dolceria</h4>
+          <p style="color: rgba(253,251,247,0.7); font-size: 0.85rem; margin-bottom: 1rem;" data-i18n="newsletterSub">
+            Iscriviti per ricevere aggiornamenti sulle creazioni stagionali ed eventi speciali.</p>
+          <form onsubmit="handleNewsletterSubmit(event)" style="display:flex; gap:0.5rem;">
+            <input type="email" required placeholder="Email" class="field"
+              style="padding:0.6rem 0.85rem; font-size:0.85rem;">
+            <button type="submit" class="gold-btn" style="padding:0.6rem 1.25rem; font-size:0.75rem;"
+              data-i18n="subscribe">Iscriviti</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Pasticceria Antica Dolceria. <span data-i18n="rights">Tutti i diritti riservati.</span></div>
+        <div style="display:flex; gap:1.5rem;">
+          <a href="privacy.html" data-i18n="privacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="terms">Termini e Condizioni</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-over Cart Drawer -->
+  <div id="cart-drawer-overlay" class="cart-drawer-overlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h3 data-i18n="cartTitle">Carrello</h3>
+        <button class="close-btn" onclick="AnticaApp.closeCart()" aria-label="Close">✕</button>
+      </div>
+      <div id="cart-items-container" class="cart-items-list"></div>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span data-i18n="total">Totale</span>
+          <span id="cart-total-amount">€ 0.00</span>
+        </div>
+        <a href="order.html" class="gold-btn" style="width: 100%;" onclick="AnticaApp.closeCart()"
+          data-i18n="checkout">Procedi all'ordine</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function toggleDeliveryFields(isDelivery) {
+      const field = document.getElementById('delivery-address-group');
+      const addressInput = document.getElementById('cust-address');
+      if (field) field.style.display = isDelivery ? 'block' : 'none';
+      if (addressInput) addressInput.required = isDelivery;
+    }
+
+    function renderCheckoutSummary() {
+      const container = document.getElementById('checkout-items-list');
+      const totalEl = document.getElementById('checkout-total-price');
+      const submitBtn = document.getElementById('submit-order-btn');
+      const lang = AnticaApp.lang;
+
+      if (!container) return;
+
+      if (AnticaApp.cart.length === 0) {
+        container.innerHTML = `
+          <p style="color:var(--text-muted); text-align:center; padding:1.5rem 0;">${lang === 'it' ? 'Il tuo carrello è vuoto.' : 'Your cart is empty.'}</p>
+        `;
+        if (totalEl) totalEl.textContent = '€ 0.00';
+        if (submitBtn) submitBtn.disabled = true;
+      } else {
+        if (submitBtn) submitBtn.disabled = false;
+        container.innerHTML = AnticaApp.cart.map(item => `
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; font-size:0.95rem;">
+            <div>
+              <strong>${item.quantity}x</strong> ${lang === 'it' ? item.name_it : item.name_en}
+            </div>
+            <div style="font-weight:600; color:var(--gold-primary);">
+              € ${(item.price * item.quantity).toFixed(2)}
+            </div>
+          </div>
+        `).join('');
+
+        if (totalEl) {
+          totalEl.textContent = `€ ${AnticaApp.getCartTotal().toFixed(2)}`;
+        }
+      }
+    }
+
+    function handleOrderSubmit(e) {
+      e.preventDefault();
+      if (AnticaApp.cart.length === 0) {
+        AnticaApp.showToast(AnticaApp.lang === 'it' ? 'Il carrello è vuoto!' : 'Your cart is empty!');
+        return;
+      }
+
+      const fulfillmentVal = document.querySelector('input[name="fulfillment"]:checked').value;
+      const orderId = 'AD-' + Math.floor(100000 + Math.random() * 900000);
+
+      const orderData = {
+        id: orderId,
+        date: new Date().toISOString(),
+        customer: {
+          name: document.getElementById('cust-name').value,
+          email: document.getElementById('cust-email').value,
+          phone: document.getElementById('cust-phone').value,
+          fulfillment: fulfillmentVal,
+          address: document.getElementById('cust-address') ? document.getElementById('cust-address').value : '',
+          notes: document.getElementById('cust-notes').value
+        },
+        items: [...AnticaApp.cart],
+        total: AnticaApp.getCartTotal()
+      };
+
+      // Save to localStorage orders
+      const orders = JSON.parse(localStorage.getItem('ad-orders') || '[]');
+      orders.unshift(orderData);
+      localStorage.setItem('ad-orders', JSON.stringify(orders));
+
+      // Clear Cart
+      AnticaApp.cart = [];
+      AnticaApp.saveCart();
+      AnticaApp.renderCartUI();
+
+      // Show Confirmation Screen
+      document.getElementById('checkout-view').style.display = 'none';
+      const successScreen = document.getElementById('order-success-screen');
+      successScreen.style.display = 'block';
+      document.getElementById('order-confirmed-id').textContent = '#' + orderId;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    window.renderPageDynamicContent = function (lang) {
+      renderCheckoutSummary();
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCheckoutSummary();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasticceria Antica Dolceria — Brescia | Pastries, Cakes & Coffee</title>
+  <meta name="description" content="Antica Dolceria, pasticceria artigianale a Mompiano, Brescia. Frutta realistica, cornetti, torte, caffè e aperitivi. Fresh Italian pastries baked every day.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Site Header & Navbar -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/gallery_1.jpg" alt="Antica Dolceria Logo">
+        <span class="brand-text">PASTICCERIA<span class="gold">ANTICA DOLCERIA</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" class="active" data-i18n="home">Home</a></li>
+          <li><a href="menu.html" data-i18n="pastries">Pasticceria</a></li>
+          <li><a href="cakes.html" data-i18n="cakes">Torte</a></li>
+          <li><a href="catering.html" data-i18n="catering">Catering</a></li>
+          <li><a href="about.html" data-i18n="about">Chi siamo</a></li>
+          <li><a href="gallery.html" data-i18n="gallery">Galleria</a></li>
+          <li><a href="contact.html" data-i18n="contact">Contatti</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-switch-btn" class="action-btn lang-btn" onclick="AnticaApp.toggleLanguage()" aria-label="Change language">EN</button>
+        <button id="theme-btn" class="action-btn" onclick="AnticaApp.toggleTheme()" aria-label="Toggle theme">
+          <span id="theme-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          </span>
+        </button>
+        <button class="action-btn cart-icon-btn" onclick="AnticaApp.openCart()" aria-label="Open cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+        <button class="action-btn mobile-menu-toggle" onclick="AnticaApp.toggleMobileNav()" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+    <a href="index.html" onclick="AnticaApp.closeMobileNav()" data-i18n="home">Home</a>
+    <a href="menu.html" onclick="AnticaApp.closeMobileNav()" data-i18n="pastries">Pasticceria</a>
+    <a href="cakes.html" onclick="AnticaApp.closeMobileNav()" data-i18n="cakes">Torte</a>
+    <a href="catering.html" onclick="AnticaApp.closeMobileNav()" data-i18n="catering">Catering</a>
+    <a href="about.html" onclick="AnticaApp.closeMobileNav()" data-i18n="about">Chi siamo</a>
+    <a href="gallery.html" onclick="AnticaApp.closeMobileNav()" data-i18n="gallery">Galleria</a>
+    <a href="contact.html" onclick="AnticaApp.closeMobileNav()" data-i18n="contact">Contatti</a>
+    <a href="order.html" onclick="AnticaApp.closeMobileNav()" data-i18n="order" style="color:var(--gold-primary);">Ordina ora</a>
+  </div>
+
+  <!-- Hero Section with Video Background -->
+  <section class="hero-section">
+    <video class="hero-video-bg" autoplay muted loop playsinline poster="assets/images/hero_cover.jpg">
+      <source src="assets/videos/hero.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="eyebrow" data-i18n="tagline_it">Frutta realistica · Alta pasticceria</span>
+      <h1 data-i18n="hero">Autentica pasticceria italiana, fresca ogni giorno.</h1>
+      <p data-i18n="sub">Ricette tradizionali, ingredienti premium e sapori indimenticabili.</p>
+      <div class="hero-actions">
+        <a href="menu.html" class="gold-btn" data-i18n="viewMenu">Scopri il menu</a>
+        <a href="order.html" class="outline-btn" style="color:#FFF; border-color:rgba(255,255,255,0.4);" data-i18n="order">Ordina ora</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Signatures Section (Le nostre firme) -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow" data-i18n="tagline_it">Frutta realistica · Alta pasticceria</span>
+        <h2 data-i18n="featured">Le nostre firme</h2>
+        <p data-i18n="featuredSub">Piccole opere d’arte create ogni giorno nel laboratorio di Mompiano.</p>
+      </div>
+
+      <div id="featured-products-grid" class="product-grid">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+      <div style="text-align: center; margin-top: 3.5rem;">
+        <a href="menu.html" class="outline-btn" style="border-bottom: 1.5px solid var(--gold-primary); border-top:0; border-left:0; border-right:0; padding-left:0; padding-right:0;">
+          <span data-i18n="menu">Menu completo</span> →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Laboratory Split Section -->
+  <section class="split-section">
+    <div class="split-video-wrap">
+      <video autoplay muted loop playsinline>
+        <source src="assets/videos/laboratory.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="split-content">
+      <div>
+        <span class="eyebrow" style="color:var(--gold-primary);" data-i18n="storyEyebrow">La nostra storia</span>
+        <h2 data-i18n="labTitle">Il laboratorio</h2>
+        <p data-i18n="storyText">La nostra pasticceria unisce la tradizione italiana a ingredienti premium per creare dolci, torte e dessert artigianali preparati freschi ogni giorno.</p>
+        <p data-i18n="storySchool">Formati presso la scuola Alberto Magri di Milano, portiamo a Mompiano una pasticceria che unisce tecnica, ricerca e materia prima d'eccellenza.</p>
+        <div style="margin-top: 2rem;">
+          <a href="about.html" class="gold-btn" data-i18n="about">Chi siamo</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section (Perché sceglierci) -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="why">Perché sceglierci</h2>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-box">
+          <div class="feature-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3 data-i18n="daily">Sfornato ogni giorno</h3>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          </div>
+          <h3 data-i18n="handmade">Ricette artigianali</h3>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <h3 data-i18n="premium">Ingredienti premium</h3>
+        </div>
+        <div class="feature-box">
+          <div class="feature-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </div>
+          <h3 data-i18n="authentic">Autentico gusto italiano</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Preview (Atelier visivo) -->
+  <section class="section-pad" style="background: var(--bg-card-alt);">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow" data-i18n="galleryTitle">Atelier visivo</span>
+        <h2 data-i18n="gallery">Galleria</h2>
+      </div>
+
+      <div id="home-gallery-grid" class="gallery-grid">
+        <!-- Rendered dynamically by JS -->
+      </div>
+
+      <div style="text-align: center; margin-top: 3rem;">
+        <a href="gallery.html" class="gold-btn" data-i18n="gallery">Vedi tutta la galleria</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews / Testimonials Section (Dicono di noi) -->
+  <section class="section-pad reviews-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 data-i18n="voices">Dicono di noi</h2>
+      </div>
+
+      <div id="reviews-grid" class="reviews-grid">
+        <!-- Rendered dynamically by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Visit & Contact Quick Section (Vieni a trovarci) -->
+  <section class="section-pad">
+    <div class="container">
+      <div class="contact-split">
+        <div class="contact-info-block">
+          <span class="eyebrow" data-i18n="contact">Contatti</span>
+          <h2 data-i18n="visit">Vieni a trovarci</h2>
+          <ul class="contact-details-list">
+            <li>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span>Via Ambaraga 68, Mompiano, Brescia</span>
+            </li>
+            <li>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              <a href="tel:+390300978038">030 097 8038</a>
+            </li>
+            <li>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span><strong data-i18n="hours">Orari</strong>: 05:30–21:00 · 7/7</span>
+            </li>
+          </ul>
+          <iframe title="Antica Dolceria map" loading="lazy" class="map-frame" src="https://www.google.com/maps?q=Antica+Dolceria+Brescia&output=embed"></iframe>
+        </div>
+
+        <div class="form-card">
+          <form id="quick-contact-form" onsubmit="handleContactSubmit(event)">
+            <div class="form-group">
+              <label data-i18n="orderForm.name">Nome e Cognome</label>
+              <input type="text" id="contact-name" class="field" required placeholder="Nome e Cognome">
+            </div>
+            <div class="form-group">
+              <label data-i18n="orderForm.email">Email</label>
+              <input type="email" id="contact-email" class="field" required placeholder="email@esempio.it">
+            </div>
+            <div class="form-group">
+              <label data-i18n="orderForm.phone">Telefono</label>
+              <input type="tel" id="contact-phone" class="field" placeholder="+39 ...">
+            </div>
+            <div class="form-group">
+              <label data-i18n="send">Messaggio</label>
+              <textarea id="contact-message" class="field" required placeholder="Come possiamo aiutarti?"></textarea>
+            </div>
+            <button type="submit" class="gold-btn" style="width:100%;" data-i18n="send">Invia messaggio</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom:1.25rem;">
+            <img src="assets/images/gallery_1.jpg" alt="Antica Dolceria">
+            <span class="brand-text">PASTICCERIA<span class="gold">ANTICA DOLCERIA</span></span>
+          </div>
+          <p style="color: rgba(253,251,247,0.7); font-size: 0.95rem; max-width: 320px;" data-i18n="sub">Ricette tradizionali, ingredienti premium e sapori indimenticabili.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="menu">Menu</h4>
+          <ul class="footer-links">
+            <li><a href="menu.html" data-i18n="pastries">Pasticceria</a></li>
+            <li><a href="cakes.html" data-i18n="cakes">Torte</a></li>
+            <li><a href="catering.html" data-i18n="catering">Catering</a></li>
+            <li><a href="order.html" data-i18n="order">Ordina ora</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="about">Chi siamo</h4>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="storyEyebrow">La nostra storia</a></li>
+            <li><a href="gallery.html" data-i18n="gallery">Galleria</a></li>
+            <li><a href="contact.html" data-i18n="contact">Contatti</a></li>
+            <li><a href="admin.html" data-i18n="admin">Gestione</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="newsletter">Una lettera dalla Dolceria</h4>
+          <p style="color: rgba(253,251,247,0.7); font-size: 0.85rem; margin-bottom: 1rem;" data-i18n="newsletterSub">Iscriviti per ricevere aggiornamenti sulle creazioni stagionali ed eventi speciali.</p>
+          <form onsubmit="handleNewsletterSubmit(event)" style="display:flex; gap:0.5rem;">
+            <input type="email" required placeholder="Email" class="field" style="padding:0.6rem 0.85rem; font-size:0.85rem;">
+            <button type="submit" class="gold-btn" style="padding:0.6rem 1.25rem; font-size:0.75rem;" data-i18n="subscribe">Iscriviti</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Pasticceria Antica Dolceria. <span data-i18n="rights">Tutti i diritti riservati.</span></div>
+        <div style="display:flex; gap:1.5rem;">
+          <a href="privacy.html" data-i18n="privacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="terms">Termini e Condizioni</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-over Cart Drawer -->
+  <div id="cart-drawer-overlay" class="cart-drawer-overlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h3 data-i18n="cartTitle">Carrello</h3>
+        <button class="close-btn" onclick="AnticaApp.closeCart()" aria-label="Close">✕</button>
+      </div>
+      <div id="cart-items-container" class="cart-items-list">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span data-i18n="total">Totale</span>
+          <span id="cart-total-amount">€ 0.00</span>
+        </div>
+        <a href="order.html" class="gold-btn" style="width: 100%;" onclick="AnticaApp.closeCart()" data-i18n="checkout">Procedi all'ordine</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox-modal" class="lightbox-modal">
+    <button class="lightbox-close" aria-label="Close Lightbox">✕</button>
+    <img id="lightbox-img" class="lightbox-img" src="" alt="Creation view">
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Home Page specific renderer
+    window.renderPageDynamicContent = function(lang) {
+      // 1. Render Featured Products (4 signatures)
+      const featContainer = document.getElementById('featured-products-grid');
+      if (featContainer) {
+        const featured = AnticaData.products.filter(p => p.featured).slice(0, 4);
+        featContainer.innerHTML = featured.map(p => `
+          <div class="product-card">
+            <div class="product-image-wrap">
+              <img src="${p.image}" alt="${lang === 'it' ? p.name_it : p.name_en}" loading="lazy">
+              <span class="product-badge">${lang === 'it' ? 'Firma' : 'Signature'}</span>
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">${lang === 'it' ? p.name_it : p.name_en}</h3>
+              <p class="product-desc">${lang === 'it' ? p.description_it : p.description_en}</p>
+              <div class="product-meta">
+                <span class="product-price">€ ${p.price.toFixed(2)}</span>
+                <button class="add-cart-btn" onclick="AnticaApp.addToCart('${p.id}')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                  ${lang === 'it' ? 'Aggiungi' : 'Add'}
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // 2. Render Gallery 8 photos
+      const galContainer = document.getElementById('home-gallery-grid');
+      if (galContainer) {
+        const items = AnticaData.gallery.slice(0, 8);
+        galContainer.innerHTML = items.map((item, idx) => `
+          <div class="gallery-item ${idx % 5 === 0 ? 'row-span-2' : ''}" onclick="AnticaApp.openLightbox('${item.image}')">
+            <img src="${item.image}" alt="Antica Dolceria creation ${idx + 1}" loading="lazy">
+          </div>
+        `).join('');
+      }
+
+      // 3. Render Reviews
+      const revContainer = document.getElementById('reviews-grid');
+      if (revContainer) {
+        const reviews = AnticaData.reviews[lang] || AnticaData.reviews.it;
+        revContainer.innerHTML = reviews.map(r => `
+          <div class="review-card">
+            <div class="star-rating">
+              ${'★'.repeat(r.rating)}
+            </div>
+            <p class="review-text">“${r.text}”</p>
+            <div class="review-author">${r.author}</div>
+          </div>
+        `).join('');
+      }
+    };
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const inquiry = {
+        name: document.getElementById('contact-name').value,
+        email: document.getElementById('contact-email').value,
+        phone: document.getElementById('contact-phone').value,
+        message: document.getElementById('contact-message').value,
+        date: new Date().toISOString()
+      };
+      
+      const inquiries = JSON.parse(localStorage.getItem('ad-inquiries') || '[]');
+      inquiries.push(inquiry);
+      localStorage.setItem('ad-inquiries', JSON.stringify(inquiries));
+      
+      AnticaApp.showToast(AnticaApp.lang === 'it' ? 'Messaggio inviato con successo!' : 'Message sent successfully!');
+      form.reset();
+    }
+
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const input = e.target.querySelector('input');
+      const email = input.value;
+      const subs = JSON.parse(localStorage.getItem('ad-subscribers') || '[]');
+      subs.push({ email, date: new Date().toISOString() });
+      localStorage.setItem('ad-subscribers', JSON.stringify(subs));
+      AnticaApp.showToast(AnticaApp.lang === 'it' ? 'Iscrizione confermata!' : 'Subscribed successfully!');
+      input.value = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      window.renderPageDynamicContent(AnticaApp.lang);
+    });
+  </script>
+</body>
+</html>

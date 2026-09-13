@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le nostre torte · Alta pasticceria | Pasticceria Antica Dolceria</title>
+  <meta name="description"
+    content="Torte su misura, frutta realistica e mousse per ogni occasione speciale. Realizziamo creazioni esclusive nel nostro laboratorio di Brescia.">
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/gallery_1.jpg" alt="Antica Dolceria Logo">
+        <span class="brand-text">PASTICCERIA<span class="gold">ANTICA DOLCERIA</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" data-i18n="home">Home</a></li>
+          <li><a href="menu.html" data-i18n="pastries">Pasticceria</a></li>
+          <li><a href="cakes.html" class="active" data-i18n="cakes">Torte</a></li>
+          <li><a href="catering.html" data-i18n="catering">Catering</a></li>
+          <li><a href="about.html" data-i18n="about">Chi siamo</a></li>
+          <li><a href="gallery.html" data-i18n="gallery">Galleria</a></li>
+          <li><a href="contact.html" data-i18n="contact">Contatti</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-switch-btn" class="action-btn lang-btn" onclick="AnticaApp.toggleLanguage()"
+          aria-label="Change language">EN</button>
+        <button id="theme-btn" class="action-btn" onclick="AnticaApp.toggleTheme()" aria-label="Toggle theme">
+          <span id="theme-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg></span>
+        </button>
+        <button class="action-btn cart-icon-btn" onclick="AnticaApp.openCart()" aria-label="Open cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+        <button class="action-btn mobile-menu-toggle" onclick="AnticaApp.toggleMobileNav()" aria-label="Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-nav-drawer" class="mobile-nav-drawer">
+    <a href="index.html" onclick="AnticaApp.closeMobileNav()" data-i18n="home">Home</a>
+    <a href="menu.html" onclick="AnticaApp.closeMobileNav()" data-i18n="pastries">Pasticceria</a>
+    <a href="cakes.html" onclick="AnticaApp.closeMobileNav()" data-i18n="cakes">Torte</a>
+    <a href="catering.html" onclick="AnticaApp.closeMobileNav()" data-i18n="catering">Catering</a>
+    <a href="about.html" onclick="AnticaApp.closeMobileNav()" data-i18n="about">Chi siamo</a>
+    <a href="gallery.html" onclick="AnticaApp.closeMobileNav()" data-i18n="gallery">Galleria</a>
+    <a href="contact.html" onclick="AnticaApp.closeMobileNav()" data-i18n="contact">Contatti</a>
+    <a href="order.html" onclick="AnticaApp.closeMobileNav()" data-i18n="order"
+      style="color:var(--gold-primary);">Ordina ora</a>
+  </div>
+
+  <!-- Hero Banner with Video -->
+  <section class="page-banner">
+    <video class="hero-video-bg" autoplay muted loop playsinline>
+      <source src="assets/videos/cakes.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="eyebrow" style="color:var(--gold-primary);">Alta pasticceria</span>
+      <h1 id="cakes-hero-title">Le nostre torte</h1>
+    </div>
+  </section>
+
+  <!-- Custom Cakes Intro & List -->
+  <main class="section-pad">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Frutta realistica · Mousse · Classiche</span>
+        <h2 id="cakes-section-title">Torte personalizzate</h2>
+        <p id="cakes-section-desc">Realizziamo torte su misura per ogni occasione. Contattaci per una creazione
+          esclusiva.</p>
+      </div>
+
+      <!-- Cakes Product Grid -->
+      <div id="cakes-products-grid" class="product-grid">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Bespoke Cake Call to Action -->
+      <div class="form-card"
+        style="margin-top: 4.5rem; text-align: center; max-width: 800px; margin-left: auto; margin-right: auto;">
+        <span class="eyebrow">Creazioni esclusive</span>
+        <h3 style="font-size: 1.85rem; margin-bottom: 1rem;">Desideri una torta per un evento speciale?</h3>
+        <p
+          style="color: var(--text-muted); margin-bottom: 2rem; max-width: 580px; margin-left: auto; margin-right: auto;">
+          Compleanni, matrimoni, lauree e ricorrenze aziendali. Studiamo insieme la forma, la decorazione e gli
+          abbinamenti di gusto ideali.
+        </p>
+        <a href="contact.html" class="gold-btn">Richiedi un preventivo personalizzato</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="margin-bottom:1.25rem;">
+            <img src="assets/images/gallery_1.jpg" alt="Antica Dolceria">
+            <span class="brand-text">PASTICCERIA<span class="gold">ANTICA DOLCERIA</span></span>
+          </div>
+          <p style="color: rgba(253,251,247,0.7); font-size: 0.95rem; max-width: 320px;" data-i18n="sub">Ricette
+            tradizionali, ingredienti premium e sapori indimenticabili.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="menu">Menu</h4>
+          <ul class="footer-links">
+            <li><a href="menu.html" data-i18n="pastries">Pasticceria</a></li>
+            <li><a href="cakes.html" data-i18n="cakes">Torte</a></li>
+            <li><a href="catering.html" data-i18n="catering">Catering</a></li>
+            <li><a href="order.html" data-i18n="order">Ordina ora</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="about">Chi siamo</h4>
+          <ul class="footer-links">
+            <li><a href="about.html" data-i18n="storyEyebrow">La nostra storia</a></li>
+            <li><a href="gallery.html" data-i18n="gallery">Galleria</a></li>
+            <li><a href="contact.html" data-i18n="contact">Contatti</a></li>
+            <li><a href="admin.html" data-i18n="admin">Gestione</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4 data-i18n="newsletter">Una lettera dalla Dolceria</h4>
+          <p style="color: rgba(253,251,247,0.7); font-size: 0.85rem; margin-bottom: 1rem;" data-i18n="newsletterSub">
+            Iscriviti per ricevere aggiornamenti sulle creazioni stagionali ed eventi speciali.</p>
+          <form onsubmit="handleNewsletterSubmit(event)" style="display:flex; gap:0.5rem;">
+            <input type="email" required placeholder="Email" class="field"
+              style="padding:0.6rem 0.85rem; font-size:0.85rem;">
+            <button type="submit" class="gold-btn" style="padding:0.6rem 1.25rem; font-size:0.75rem;"
+              data-i18n="subscribe">Iscriviti</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Pasticceria Antica Dolceria. <span data-i18n="rights">Tutti i diritti riservati.</span></div>
+        <div style="display:flex; gap:1.5rem;">
+          <a href="privacy.html" data-i18n="privacy">Privacy Policy</a>
+          <a href="terms.html" data-i18n="terms">Termini e Condizioni</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-over Cart Drawer -->
+  <div id="cart-drawer-overlay" class="cart-drawer-overlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h3 data-i18n="cartTitle">Carrello</h3>
+        <button class="close-btn" onclick="AnticaApp.closeCart()" aria-label="Close">✕</button>
+      </div>
+      <div id="cart-items-container" class="cart-items-list"></div>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span data-i18n="total">Totale</span>
+          <span id="cart-total-amount">€ 0.00</span>
+        </div>
+        <a href="order.html" class="gold-btn" style="width: 100%;" onclick="AnticaApp.closeCart()"
+          data-i18n="checkout">Procedi all'ordine</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    window.renderPageDynamicContent = function (lang) {
+      const heroTitle = document.getElementById('cakes-hero-title');
+      const secTitle = document.getElementById('cakes-section-title');
+      const secDesc = document.getElementById('cakes-section-desc');
+
+      if (heroTitle) heroTitle.textContent = lang === 'it' ? 'Le nostre torte' : 'Our cakes';
+      if (secTitle) secTitle.textContent = lang === 'it' ? 'Torte personalizzate' : 'Custom cakes';
+      if (secDesc) secDesc.textContent = lang === 'it'
+        ? 'Realizziamo torte su misura per ogni occasione. Contattaci per una creazione esclusiva.'
+        : 'We craft bespoke cakes for every occasion. Contact us for an exclusive creation.';
+
+      const grid = document.getElementById('cakes-products-grid');
+      if (grid) {
+        // Filter cakes & realistic fruit / desserts
+        const cakes = AnticaData.products.filter(p => p.category === 'cakes' || p.category === 'desserts');
+        grid.innerHTML = cakes.map(p => `
+          <div class="product-card">
+            <div class="product-image-wrap">
+              <img src="${p.image}" alt="${lang === 'it' ? p.name_it : p.name_en}" loading="lazy">
+              ${p.featured ? `<span class="product-badge">${lang === 'it' ? 'Firma' : 'Signature'}</span>` : ''}
+            </div>
+            <div class="product-info">
+              <h3 class="product-title">${lang === 'it' ? p.name_it : p.name_en}</h3>
+              <p class="product-desc">${lang === 'it' ? p.description_it : p.description_en}</p>
+              <div class="product-meta">
+                <span class="product-price">€ ${p.price.toFixed(2)}</span>
+                <button class="add-cart-btn" onclick="AnticaApp.addToCart('${p.id}')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                  ${lang === 'it' ? 'Aggiungi' : 'Add'}
+                </button>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+    };
+
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const input = e.target.querySelector('input');
+      const email = input.value;
+      const subs = JSON.parse(localStorage.getItem('ad-subscribers') || '[]');
+      subs.push({ email, date: new Date().toISOString() });
+      localStorage.setItem('ad-subscribers', JSON.stringify(subs));
+      AnticaApp.showToast(AnticaApp.lang === 'it' ? 'Iscrizione confermata!' : 'Subscribed successfully!');
+      input.value = '';
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      window.renderPageDynamicContent(AnticaApp.lang);
+    });
+  </script>
+</body>
+
+</html>

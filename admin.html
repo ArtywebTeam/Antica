@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestione Pasticceria · Admin Dashboard | Antica Dolceria</title>
+  <link rel="icon" type="image/png" href="assets/images/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .admin-tab-btn {
+      padding: 0.75rem 1.5rem;
+      border: 1px solid var(--gold-border);
+      background: transparent;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+    }
+
+    .admin-tab-btn.active {
+      background: var(--gold-primary);
+      color: #1B110A;
+      border-color: var(--gold-primary);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .admin-table th,
+    .admin-table td {
+      padding: 1rem 1.25rem;
+      text-align: left;
+      border-bottom: 1px solid var(--gold-border);
+      font-size: 0.9rem;
+    }
+
+    .admin-table th {
+      background: var(--bg-secondary);
+      font-family: var(--font-heading);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-size: 0.8rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .badge-pickup {
+      background: #E8DCCB;
+      color: #1B110A;
+    }
+
+    .badge-delivery {
+      background: var(--gold-primary);
+      color: #1B110A;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-logo">
+        <img src="assets/images/gallery_1.jpg" alt="Antica Dolceria Logo">
+        <span class="brand-text">PASTICCERIA<span class="gold">ANTICA DOLCERIA</span></span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Pasticceria</a></li>
+          <li><a href="cakes.html">Torte</a></li>
+          <li><a href="catering.html">Catering</a></li>
+          <li><a href="about.html">Chi siamo</a></li>
+          <li><a href="gallery.html">Galleria</a></li>
+          <li><a href="contact.html">Contatti</a></li>
+          <li><a href="admin.html" class="active" style="color:var(--gold-primary);">Gestione</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="lang-switch-btn" class="action-btn lang-btn" onclick="AnticaApp.toggleLanguage()"
+          aria-label="Change language">EN</button>
+        <button id="theme-btn" class="action-btn" onclick="AnticaApp.toggleTheme()" aria-label="Toggle theme">
+          <span id="theme-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg></span>
+        </button>
+        <button class="action-btn cart-icon-btn" onclick="AnticaApp.openCart()" aria-label="Open cart">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Admin Main Dashboard -->
+  <main class="section-pad" style="padding-top: calc(var(--header-height) + 3.5rem); min-height: 85vh;">
+    <div class="container">
+      <div class="section-header text-left">
+        <span class="eyebrow">Pannello di controllo</span>
+        <h1 style="font-size: clamp(2.5rem, 5vw, 4rem);">Gestione Dolceria</h1>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div style="display:flex; gap:0.75rem; flex-wrap:wrap; margin-bottom: 2.5rem;">
+        <button class="admin-tab-btn active" onclick="switchAdminTab('products', this)">Prodotti & Menu</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('orders', this)">Ordini Ricevuti</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('inquiries', this)">Messaggi & Devis</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('subscribers', this)">Newsletter</button>
+      </div>
+
+      <!-- Tab 1: Products Management -->
+      <div id="admin-tab-products" class="admin-tab-content">
+        <div
+          style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; flex-wrap:wrap; gap:1rem;">
+          <h2 style="font-size: 1.5rem;">Catalogo Prodotti (<span id="prod-count">12</span>)</h2>
+          <button class="gold-btn" onclick="showAddProductModal()">+ Aggiungi Nuovo Prodotto</button>
+        </div>
+
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Immagine</th>
+                <th>Nome (IT / EN)</th>
+                <th>Categoria</th>
+                <th>Prezzo</th>
+                <th>In evidenza</th>
+                <th>Azioni</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 2: Orders Management -->
+      <div id="admin-tab-orders" class="admin-tab-content" style="display:none;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+          <h2 style="font-size: 1.5rem;">Ordini Ricevuti</h2>
+          <button class="outline-btn" style="padding:0.5rem 1rem; font-size:0.75rem;" onclick="clearOrders()">Svuota
+            cronologia</button>
+        </div>
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Codice</th>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Modalità</th>
+                <th>Articoli</th>
+                <th>Totale</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Inquiries -->
+      <div id="admin-tab-inquiries" class="admin-tab-content" style="display:none;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Messaggi dal sito e Richieste Catering</h2>
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Nome</th>
+                <th>Contatto</th>
+                <th>Messaggio / Dettagli</th>
+              </tr>
+            </thead>
+            <tbody id="admin-inquiries-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 4: Newsletter Subscribers -->
+      <div id="admin-tab-subscribers" class="admin-tab-content" style="display:none;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem;">Iscritti alla Newsletter</h2>
+        <div style="overflow-x: auto;">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Data Iscrizione</th>
+                <th>Indirizzo Email</th>
+              </tr>
+            </thead>
+            <tbody id="admin-subscribers-table-body">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Add Product Modal -->
+  <div id="add-product-modal" class="cart-drawer-overlay">
+    <div
+      style="background:var(--bg-card); max-width:550px; width:90%; margin: 5vh auto; padding: 2rem; border:1px solid var(--gold-border); border-radius:var(--radius-sm); max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <h3 style="font-size:1.4rem;">Aggiungi Nuovo Prodotto</h3>
+        <button onclick="closeAddProductModal()" style="font-size:1.5rem; color:var(--text-main);">✕</button>
+      </div>
+      <form onsubmit="handleCreateProduct(event)">
+        <div class="form-group">
+          <label>Nome Italiano</label>
+          <input type="text" id="new-name-it" class="field" required placeholder="Es. Cornetto al Pistacchio">
+        </div>
+        <div class="form-group">
+          <label>Nome Inglese</label>
+          <input type="text" id="new-name-en" class="field" required placeholder="Es. Pistachio Croissant">
+        </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select id="new-cat" class="field" required>
+            <option value="pastries">Pasticceria</option>
+            <option value="croissants">Cornetti</option>
+            <option value="cakes">Torte</option>
+            <option value="cookies">Biscotti</option>
+            <option value="desserts">Dessert</option>
+            <option value="coffee">Caffè</option>
+            <option value="tea">Tè</option>
+            <option value="cold_drinks">Bevande fredde</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Prezzo (€)</label>
+          <input type="number" step="0.10" id="new-price" class="field" required placeholder="4.50">
+        </div>
+        <div class="form-group">
+          <label>Descrizione Italiana</label>
+          <input type="text" id="new-desc-it" class="field" required
+            placeholder="Farcito con crema al pistacchio di Bronte...">
+        </div>
+        <div class="form-group">
+          <label>Descrizione Inglese</label>
+          <input type="text" id="new-desc-en" class="field" required
+            placeholder="Filled with artisan pistachio cream...">
+        </div>
+        <div class="form-group">
+          <label>URL Immagine</label>
+          <input type="text" id="new-img" class="field" placeholder="assets/images/product_croissant.jpg">
+        </div>
+        <button type="submit" class="gold-btn" style="width:100%; margin-top:1rem;">Salva nel Catalogo</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>© 2026 Pasticceria Antica Dolceria. Tutti i diritti riservati.</div>
+        <div>Pannello di Gestione Locale</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-over Cart Drawer -->
+  <div id="cart-drawer-overlay" class="cart-drawer-overlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h3 data-i18n="cartTitle">Carrello</h3>
+        <button class="close-btn" onclick="AnticaApp.closeCart()" aria-label="Close">✕</button>
+      </div>
+      <div id="cart-items-container" class="cart-items-list"></div>
+      <div class="cart-footer">
+        <div class="cart-total-row">
+          <span data-i18n="total">Totale</span>
+          <span id="cart-total-amount">€ 0.00</span>
+        </div>
+        <a href="order.html" class="gold-btn" style="width: 100%;" onclick="AnticaApp.closeCart()"
+          data-i18n="checkout">Procedi all'ordine</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    function switchAdminTab(tabName, btn) {
+      document.querySelectorAll('.admin-tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+
+      const target = document.getElementById('admin-tab-' + tabName);
+      if (target) target.style.display = 'block';
+      if (btn) btn.classList.add('active');
+
+      if (tabName === 'products') renderAdminProducts();
+      if (tabName === 'orders') renderAdminOrders();
+      if (tabName === 'inquiries') renderAdminInquiries();
+      if (tabName === 'subscribers') renderAdminSubscribers();
+    }
+
+    function renderAdminProducts() {
+      const tbody = document.getElementById('admin-products-table-body');
+      const countEl = document.getElementById('prod-count');
+      if (countEl) countEl.textContent = AnticaData.products.length;
+
+      if (tbody) {
+        tbody.innerHTML = AnticaData.products.map(p => `
+          <tr>
+            <td><img src="${p.image}" alt="${p.name_it}" style="width:48px; height:48px; border-radius:4px; object-fit:cover;"></td>
+            <td><strong>${p.name_it}</strong><br><small style="color:var(--text-muted);">${p.name_en}</small></td>
+            <td><span class="badge" style="background:var(--bg-secondary);">${p.category}</span></td>
+            <td><strong>€ ${p.price.toFixed(2)}</strong></td>
+            <td>${p.featured ? '<span style="color:var(--gold-primary);">★ Sì</span>' : 'No'}</td>
+            <td>
+              <button onclick="deleteProduct('${p.id}')" style="color:#d32f2f; font-weight:600; font-size:0.85rem;">Elimina</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function renderAdminOrders() {
+      const tbody = document.getElementById('admin-orders-table-body');
+      const orders = JSON.parse(localStorage.getItem('ad-orders') || '[]');
+
+      if (tbody) {
+        if (orders.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:2rem; color:var(--text-muted);">Nessun ordine ricevuto al momento.</td></tr>`;
+        } else {
+          tbody.innerHTML = orders.map(ord => `
+            <tr>
+              <td><strong>#${ord.id}</strong></td>
+              <td>${new Date(ord.date).toLocaleString('it-IT')}</td>
+              <td>
+                <strong>${ord.customer.name}</strong><br>
+                <small>${ord.customer.phone} · ${ord.customer.email}</small>
+                ${ord.customer.notes ? `<br><em style="font-size:0.8rem; color:var(--text-muted);">"${ord.customer.notes}"</em>` : ''}
+              </td>
+              <td>
+                <span class="badge ${ord.customer.fulfillment === 'pickup' ? 'badge-pickup' : 'badge-delivery'}">
+                  ${ord.customer.fulfillment === 'pickup' ? 'Ritiro' : 'Consegna'}
+                </span>
+                ${ord.customer.address ? `<br><small>${ord.customer.address}</small>` : ''}
+              </td>
+              <td>${ord.items.map(i => `${i.quantity}x ${i.name_it}`).join(', ')}</td>
+              <td><strong>€ ${ord.total.toFixed(2)}</strong></td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function renderAdminInquiries() {
+      const tbody = document.getElementById('admin-inquiries-table-body');
+      const inquiries = JSON.parse(localStorage.getItem('ad-inquiries') || '[]');
+
+      if (tbody) {
+        if (inquiries.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:2rem; color:var(--text-muted);">Nessun messaggio pervenuto.</td></tr>`;
+        } else {
+          tbody.innerHTML = inquiries.map(inq => `
+            <tr>
+              <td>${new Date(inq.date).toLocaleString('it-IT')}</td>
+              <td><span class="badge" style="background:var(--gold-border);">${inq.type === 'catering' ? 'Catering' : 'Contatto'}</span></td>
+              <td><strong>${inq.name}</strong></td>
+              <td>${inq.email}<br>${inq.phone || '-'}</td>
+              <td>
+                ${inq.details ? `<strong>Evento:</strong> ${inq.details}<br>` : ''}
+                ${inq.message}
+              </td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function renderAdminSubscribers() {
+      const tbody = document.getElementById('admin-subscribers-table-body');
+      const subs = JSON.parse(localStorage.getItem('ad-subscribers') || '[]');
+
+      if (tbody) {
+        if (subs.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="2" style="text-align:center; padding:2rem; color:var(--text-muted);">Nessun iscritto alla newsletter.</td></tr>`;
+        } else {
+          tbody.innerHTML = subs.map(s => `
+            <tr>
+              <td>${new Date(s.date).toLocaleString('it-IT')}</td>
+              <td><strong>${s.email}</strong></td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    function showAddProductModal() {
+      document.getElementById('add-product-modal').classList.add('open');
+    }
+
+    function closeAddProductModal() {
+      document.getElementById('add-product-modal').classList.remove('open');
+    }
+
+    function handleCreateProduct(e) {
+      e.preventDefault();
+      const newProd = {
+        id: 'prod-' + (AnticaData.products.length + 1),
+        name_it: document.getElementById('new-name-it').value,
+        name_en: document.getElementById('new-name-en').value,
+        category: document.getElementById('new-cat').value,
+        price: parseFloat(document.getElementById('new-price').value),
+        description_it: document.getElementById('new-desc-it').value,
+        description_en: document.getElementById('new-desc-en').value,
+        image: document.getElementById('new-img').value || 'assets/images/product_croissant.jpg',
+        featured: false,
+        available: true
+      };
+
+      AnticaData.products.unshift(newProd);
+      renderAdminProducts();
+      closeAddProductModal();
+      AnticaApp.showToast('Prodotto aggiunto con successo!');
+      e.target.reset();
+    }
+
+    function deleteProduct(id) {
+      if (confirm('Sei sicuro di voler rimuovere questo prodotto dal catalogo?')) {
+        AnticaData.products = AnticaData.products.filter(p => p.id !== id);
+        renderAdminProducts();
+        AnticaApp.showToast('Prodotto rimosso.');
+      }
+    }
+
+    function clearOrders() {
+      if (confirm('Azzerare la cronologia degli ordini?')) {
+        localStorage.removeItem('ad-orders');
+        renderAdminOrders();
+        AnticaApp.showToast('Cronologia ordini azzerata.');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderAdminProducts();
+    });
+  </script>
+</body>
+
+</html>
